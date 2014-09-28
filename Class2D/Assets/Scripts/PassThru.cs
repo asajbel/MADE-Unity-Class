@@ -13,9 +13,10 @@ public class PassThru : MonoBehaviour {
 	
 	}
 
-	void OnTriggerEnter2D (Collider2D col) {
+	void OnTriggerStay2D (Collider2D col) {
 		if (col.transform.tag == "Player") {
-			Physics2D.IgnoreLayerCollision(8, 9, true); 
+			if (!col.transform.GetComponent<Player>().IsGrounded()) 
+				Physics2D.IgnoreLayerCollision(8, 9, true); 
 		}
 	}
 

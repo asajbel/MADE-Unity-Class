@@ -2,10 +2,11 @@
 using System.Collections;
 
 public class CameraFollow : MonoBehaviour {
-	private Transform player;
+	public Transform player;
 	
 	void Awake () {
-		player = GameObject.FindGameObjectWithTag("Player").transform;
+		if (player == null) 
+			player = GameObject.FindGameObjectWithTag("Player").transform;
 	}
 	
 	// Use this for initialization
