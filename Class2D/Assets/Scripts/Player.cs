@@ -16,6 +16,7 @@ public class Player : MonoBehaviour {
 	private bool bounce = false;
 	private Vector2 force;
 	private Vector2 jumpForce;
+	private GameObject[] enemies; 
 
 	bool grounded = false;
 	public Transform groundCheck;
@@ -31,6 +32,7 @@ public class Player : MonoBehaviour {
 		force = new Vector2();
 		jumpForce = new Vector2();
 		anim = GetComponent<Animator>(); 
+		enemies = GameObject.FindGameObjectsWithTag("Enemy"); 
 	}
 	
 	// This function is called every fixed framerate frame, if the MonoBehaviour is enabled.
@@ -85,6 +87,10 @@ public class Player : MonoBehaviour {
 		}
 		else {
 			transform.position = spawn; 
+			foreach (GameObject e in enemies) {
+				e.SetActive(true); 
+				e.transform.GetComponent<Enemy>().Spawn();
+			}
 			dead = false;
 		}
 	}

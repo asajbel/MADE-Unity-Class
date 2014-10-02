@@ -16,7 +16,7 @@ public class HeadStomp : MonoBehaviour {
 	void OnTriggerEnter2D (Collider2D col) {
 		if (col.transform.tag == "Enemy") {
 			GetComponentInParent<Player>().Bounce(); 
-			Destroy(col.gameObject); 
+			col.GetComponent<Enemy>().Die (); 
 		}
 	}
 }
