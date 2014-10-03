@@ -8,6 +8,9 @@ public class Player : MonoBehaviour {
 	public float jumpSpeed = 100f;
 	public float jumpTime = 0.035f;
 
+	public AudioSource jumpAudio;
+	public AudioSource coinAudio;
+
 	private float airTime = 0f;
 	private bool dead = false; 
 	private bool canJump = true; 
@@ -17,11 +20,14 @@ public class Player : MonoBehaviour {
 	private Vector2 force;
 	private Vector2 jumpForce;
 	private GameObject[] enemies; 
+	private GameObject[] coins; 
 
 	bool grounded = false;
 	public Transform groundCheck;
 	float groundRadius = 0.2f;
 	public LayerMask whatIsGround; 
+
+	private Score score; 
 
 	Animator anim;
 
@@ -33,6 +39,8 @@ public class Player : MonoBehaviour {
 		jumpForce = new Vector2();
 		anim = GetComponent<Animator>(); 
 		enemies = GameObject.FindGameObjectsWithTag("Enemy"); 
+		coins = GameObject.FindGameObjectsWithTag("Coin"); 
+		score = GameObject.Find("Score").GetComponent<Score>(); 
 	}
 	
 	// This function is called every fixed framerate frame, if the MonoBehaviour is enabled.
@@ -69,6 +77,9 @@ public class Player : MonoBehaviour {
 			jumpForce.y = 0f;
 
 			if ((Input.GetButton("Jump") || bounce) && airTime < jumpTime && canJump) {
+				if (grounded) {
+					PlayJump();
+				}
 				airTime += Time.deltaTime; 
 				jumpForce.y += jumpSpeed;
 				if (bounce && Input.GetButton("Jump")) {
@@ -91,7 +102,17 @@ public class Player : MonoBehaviour {
 				e.SetActive(true); 
 				e.transform.GetComponent<Enemy>().Spawn();
 			}
+
+			foreach( GameObject c in coins) {
+				c.SetActive(true);
+			}
 			dead = false;
+		}
+	}
+
+	void OnCollisionEnter2D (Collision2D col) {
+		if (col.transform.tag == "Enemy") {
+			Die (); 
 		}
 	}
 
@@ -103,8 +124,20 @@ public class Player : MonoBehaviour {
 
 	void OnTriggerEnter2D (Collider2D col) {
 		if (col.transform.tag == "DeathTrigger") {
-			dead = true;
+			Die (); 
 		}
+		if (col.transform.tag == "Coin") {
+			Coin c = col.GetComponent<Coin>();
+			score.score += c.value; 
+			col.gameObject.SetActive(false);
+			coinAudio.Stop(); 
+			coinAudio.Play();
+		}
+	}
+
+	void Die() {
+		dead = true;
+		score.score = 0; 
 	}
 
 	void Flip ()
@@ -124,5 +157,10 @@ public class Player : MonoBehaviour {
 
 	public bool IsGrounded() {
 		return grounded;
+	}
+
+	public void PlayJump() {
+		jumpAudio.Stop (); 
+		jumpAudio.Play(); 
 	}
 }
