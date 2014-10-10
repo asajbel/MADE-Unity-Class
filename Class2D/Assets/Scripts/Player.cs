@@ -11,6 +11,8 @@ public class Player : MonoBehaviour {
 	public AudioSource jumpAudio;
 	public AudioSource coinAudio;
 
+	public GameObject blaster; 
+
 	private float airTime = 0f;
 	private bool dead = false; 
 	private bool canJump = true; 
@@ -76,10 +78,11 @@ public class Player : MonoBehaviour {
 		if (!dead) {
 			jumpForce.y = 0f;
 
+			if (Input.GetButtonDown("Jump") && canJump) {
+				PlayJump();
+			}
+
 			if ((Input.GetButton("Jump") || bounce) && airTime < jumpTime && canJump) {
-				if (grounded) {
-					PlayJump();
-				}
 				airTime += Time.deltaTime; 
 				jumpForce.y += jumpSpeed;
 				if (bounce && Input.GetButton("Jump")) {
@@ -98,6 +101,7 @@ public class Player : MonoBehaviour {
 		}
 		else {
 			transform.position = spawn; 
+			blaster.SetActive(false);
 			foreach (GameObject e in enemies) {
 				e.SetActive(true); 
 				e.transform.GetComponent<Enemy>().Spawn();
@@ -132,6 +136,10 @@ public class Player : MonoBehaviour {
 			col.gameObject.SetActive(false);
 			coinAudio.Stop(); 
 			coinAudio.Play();
+		}
+
+		if (col.transform.name == "Blaster") {
+			blaster.SetActive(true); 
 		}
 	}
 
