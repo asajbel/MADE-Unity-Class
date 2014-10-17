@@ -7,6 +7,8 @@ Project("{7FCC56B7-88CC-E73C-4EF1-2851A7A29FC8}") = "Class3D", "Assembly-CSharp-
 EndProject
 Project("{7FCC56B7-88CC-E73C-4EF1-2851A7A29FC8}") = "Class3D", "Assembly-UnityScript-firstpass.unityproj", "{22C2A299-257F-426E-39BD-97ABD8B9788B}"
 EndProject
+Project("{7FCC56B7-88CC-E73C-4EF1-2851A7A29FC8}") = "Class3D", "Assembly-UnityScript.unityproj", "{88074192-436E-44CD-E500-170CFFC8DB01}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -25,11 +27,15 @@ Global
 		{22C2A299-257F-426E-39BD-97ABD8B9788B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{22C2A299-257F-426E-39BD-97ABD8B9788B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{22C2A299-257F-426E-39BD-97ABD8B9788B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{88074192-436E-44CD-E500-170CFFC8DB01}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{88074192-436E-44CD-E500-170CFFC8DB01}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{88074192-436E-44CD-E500-170CFFC8DB01}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{88074192-436E-44CD-E500-170CFFC8DB01}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
-	GlobalSection(MonoDevelopProperties) = preSolution
+								GlobalSection(MonoDevelopProperties) = preSolution
 		StartupItem = Assembly-CSharp.csproj
 		Policies = $0
 		$0.TextStylePolicy = $1
@@ -47,4 +53,5 @@ Global
 		$3.inheritsScope = text/plain
 		$3.scope = text/plain
 	EndGlobalSection
+
 EndGlobal
